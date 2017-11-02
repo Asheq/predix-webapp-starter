@@ -10,7 +10,9 @@ module.exports = function() {
     nodemon({
         script: 'server/app.js',
         ignore: ['*'],
-        env: { 'base-dir' : '/../build/es5-basic/public'}
+        env: {
+          'base-dir': '/../build/es5-basic/public'
+        }
       })
       .on('restart', function() {
         console.log('app.js restarted');

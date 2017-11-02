@@ -10,8 +10,8 @@ var dev = process.argv.indexOf('--dist') < 0;
 // Task: Polymer CLI - use the Polymer CLI for bundling and JS minification
 //   See polymer.json for Polymer CLI build options.
 // -----------------------------------------------------------------------------
-gulp.task('polymer:cli', function (cb) {
-  exec('node ./node_modules/polymer-cli/bin/polymer.js build', function (err, stdout, stderr) {
+gulp.task('polymer:cli', function(cb) {
+  exec('node ./node_modules/polymer-cli/bin/polymer.js build', function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     cb(err);
@@ -22,7 +22,7 @@ gulp.task('polymer:cli', function (cb) {
 // getTask() loads external gulp task script functions by filename
 // -----------------------------------------------------------------------------
 function getTask(task) {
-	return require('./tasks/' + task)(gulp, plugins);
+  return require('./tasks/' + task)(gulp, plugins);
 }
 
 // -----------------------------------------------------------------------------
@@ -47,12 +47,12 @@ gulp.task('watch:public', getTask('watch.public'));
 // 	clean, compile:sass, compile:index, bundle (using polymer cli), copy
 // -----------------------------------------------------------------------------
 gulp.task('dist', function(cb) {
-	gulpSequence(
-		'dist:clean', 
-		'compile:index', 
-		'polymer:cli',
-		'dist:copy'
-	)(cb);
+  gulpSequence(
+    'dist:clean',
+    'compile:index',
+    'polymer:cli',
+    'dist:copy'
+  )(cb);
 });
 
 // -----------------------------------------------------------------------------
@@ -69,10 +69,10 @@ gulp.task('dist:clean', getTask('dist.clean'));
 //  Task: Default (compile source, start server, watch for changes)
 //    run "gulp --dist" to serve up files from the build directory.
 // -----------------------------------------------------------------------------
-gulp.task('default', function (cb) {
-	if (dev) {
-		gulpSequence('compile:index', 'watch:public', 'serve:dev:start')(cb);
-	} else {
-		gulpSequence('serve:dist:start')(cb);
-	}	
+gulp.task('default', function(cb) {
+  if (dev) {
+    gulpSequence('compile:index', 'serve:dev:start', 'watch:public')(cb);
+  } else {
+    gulpSequence('serve:dist:start')(cb);
+  }
 });
