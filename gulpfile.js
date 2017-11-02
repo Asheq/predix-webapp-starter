@@ -34,7 +34,7 @@ gulp.task('compile:index', ['compile:sass'], getTask('compile.index'));
 // -----------------------------------------------------------------------------
 // Task: Serve : Start
 // -----------------------------------------------------------------------------
-gulp.task('serve:dev:start', getTask('serve.dev.start'));
+gulp.task('serve:dev:start', ['compile:index'], getTask('serve.dev.start'));
 gulp.task('serve:dist:start', ['dist'], getTask('serve.dist.start'));
 
 // -----------------------------------------------------------------------------
@@ -71,7 +71,7 @@ gulp.task('dist:clean', getTask('dist.clean'));
 // -----------------------------------------------------------------------------
 gulp.task('default', function(cb) {
   if (dev) {
-    gulpSequence('compile:index', 'serve:dev:start', 'watch:public')(cb);
+    gulpSequence('serve:dev:start', 'watch:public')(cb);
   } else {
     gulpSequence('serve:dist:start')(cb);
   }
